@@ -30,3 +30,27 @@ test('Encodes dictionaries correctly', t => {
   t.equal(encode({ hello: [1, 2], world: [3, 4]}), 'd5:helloli1ei2ee5:worldli3ei4eee', 'Object with arrays')
   t.end()
 })
+
+test('Throws error on undefined', t => {
+  t.throws(() => encode(undefined), 'Undefined as primitive')
+  t.throws(() => encode([undefined]), 'Undefined in array')
+  t.throws(() => encode({ foo: undefined }), 'Undefined in object')
+  t.end()
+})
+
+test('Throws error on null', t => {
+  t.throws(() => encode(null), 'Null as literal')
+  t.throws(() => encode([null]), 'Null in array')
+  t.throws(() => encode({ foo: null }), 'Null in object')
+  t.end()
+})
+
+test('Throws error on booleans', t => {
+  t.throws(() => encode(true), 'True as literal')
+  t.throws(() => encode(false), 'False as literal')
+  t.throws(() => encode([true]), 'True in array')
+  t.throws(() => encode([false]), 'False in array')
+  t.throws(() => encode({ foo: true }), 'True in object')
+  t.throws(() => encode({ foo: false }), 'False in object')
+  t.end()
+})
