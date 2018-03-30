@@ -2,9 +2,13 @@ const encodeInt = num => `i${num}e`
 
 const encodeString = str => `${str.length}:${str}`
 
-const encodeList = arr => `l${arr.map(encode).join('')}e`
+const encodeListEntries = arr => arr.map(encode).join('')
+const encodeList = arr => `l${encodeListEntries(arr)}e`
 
-const encodeDict = obj => `d${Object.keys(obj).map(key => `${encode(key)}${encode(obj[key])}`).join('')}e`
+const encodeDictEntries = obj => Object.keys(obj)
+  .map(key => `${encode(key)}${encode(obj[key])}`)
+  .join('')
+const encodeDict = obj => `d${encodeDictEntries(obj)}e`
 
 const encode = data => {
   if (typeof data === 'number')
