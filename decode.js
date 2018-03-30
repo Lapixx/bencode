@@ -45,11 +45,14 @@ const decode = str => {
     return decodeList(str)
   if (head === 'd')
     return decodeDict(str)
+  throw new Error(`Unexpected token: ${head}`)
 }
 
 const _decode = str => {
-  const data = decode(str)
-  return data && data[0]
+  [data, rest] = decode(str)
+  if (rest !== '')
+    throw new Error(`Unable to decode remaining input: ${rest}`)
+  return data
 }
 
 module.exports = _decode

@@ -30,3 +30,9 @@ test('Decodes dictionaries correctly', t => {
   t.deepEqual(decode('d5:helloli1ei2ee5:worldli3ei4eee'), { hello: [1, 2], world: [3, 4]}, 'Object with arrays')
   t.end()
 })
+
+test('Throws error on invalid input', t => {
+  t.throws(() => decode('a5e'), 'Unrecognised token')
+  t.throws(() => decode('5:hellos'), 'Superfluous input')
+  t.end()
+})
